@@ -2,6 +2,9 @@
 
 A simple, clean web-based viewer for Editor.js content. Paste your Editor.js JSON data and instantly see how it renders.
 
+## 🌐 Live Demo
+**[Try it now: https://aronanand.github.io/EditorJSViewer/](https://aronanand.github.io/EditorJSViewer/)**
+
 ## Features
 
 - ✅ **Multiple Block Support**: Headers, paragraphs, lists, quotes, code blocks, tables, images, and more
