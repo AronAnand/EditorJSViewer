@@ -5,15 +5,17 @@ A simple, clean web-based viewer for Editor.js content. Paste your Editor.js JSO
 ## 🌐 Live Demo
 **[Try it now: https://aronanand.github.io/EditorJSViewer/](https://aronanand.github.io/EditorJSViewer/)**
 
+<!-- Temporarily commented out UPI support section
 ## 🇮🇳 Support via UPI
 If you find this tool helpful, consider supporting its development through UPI:
 
-**UPI ID:** `aronc.anand-1@okhdfcbank`
+**UPI ID:** `yourname@upi`
 
 - Click the "Support via UPI" button on the website for QR code
 - Supports all major UPI apps (PhonePe, Google Pay, Paytm, etc.)
 - 100% secure - no bank details required
 - Any amount is appreciated! 🙏
+-->
 
 ## Features
 
