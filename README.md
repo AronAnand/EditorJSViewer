@@ -5,6 +5,11 @@ A simple, clean web-based viewer for Editor.js content. Paste your Editor.js JSO
 ## 🌐 Live Demo
 **[Try it now: https://aronanand.github.io/EditorJSViewer/](https://aronanand.github.io/EditorJSViewer/)**
 
+## ☕ Support
+If you find this tool helpful, consider supporting its development:
+
+[![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20A%20Coffee-support%20my%20work-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](https://www.buymeacoffee.com/aronanand)
+
 ## Features
 
 - ✅ **Multiple Block Support**: Headers, paragraphs, lists, quotes, code blocks, tables, images, and more
