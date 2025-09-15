@@ -5,10 +5,15 @@ A simple, clean web-based viewer for Editor.js content. Paste your Editor.js JSO
 ## 🌐 Live Demo
 **[Try it now: https://aronanand.github.io/EditorJSViewer/](https://aronanand.github.io/EditorJSViewer/)**
 
-## ☕ Support
-If you find this tool helpful, consider supporting its development:
+## 🇮🇳 Support via UPI
+If you find this tool helpful, consider supporting its development through UPI:
 
-[![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20A%20Coffee-support%20my%20work-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](https://www.buymeacoffee.com/aronanand)
+**UPI ID:** `aronanand@paytm`
+
+- Click the "Support via UPI" button on the website for QR code
+- Supports all major UPI apps (PhonePe, Google Pay, Paytm, etc.)
+- 100% secure - no bank details required
+- Any amount is appreciated! 🙏
 
 ## Features
 

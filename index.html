@@ -15,10 +15,10 @@
                     <p>Paste your Editor.js JSON data below to view the rendered content</p>
                 </div>
                 <div class="support-section">
-                    <a href="https://www.buymeacoffee.com/aronanand" target="_blank" class="coffee-button">
-                        <span class="coffee-icon">☕</span>
-                        Buy me a coffee
-                    </a>
+                    <button id="support-btn" class="support-button">
+                        <span class="support-icon">🇮🇳</span>
+                        Support via UPI
+                    </button>
                 </div>
             </div>
         </header>
@@ -38,7 +38,54 @@
             </div>
         </main>
     </div>
+
+    <!-- UPI Payment Modal -->
+    <div id="upi-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>☕ Support the Project</h2>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p>Your support helps maintain and improve this tool! 🙏</p>
+                
+                <div class="payment-options">
+                    <div class="upi-section">
+                        <h3>📱 UPI Payment</h3>
+                        <div class="upi-id-section">
+                            <label>UPI ID:</label>
+                            <div class="upi-id-container">
+                                <span id="upi-id">aronanand@paytm</span>
+                                <button id="copy-upi" class="copy-btn" title="Copy UPI ID">📋</button>
+                            </div>
+                        </div>
+                        
+                        <div class="qr-section">
+                            <p>or scan QR code:</p>
+                            <div id="qr-code"></div>
+                            <p class="qr-note">Scan with any UPI app (PhonePe, Google Pay, Paytm, etc.)</p>
+                        </div>
+                    </div>
+                    
+                    <div class="amount-suggestions">
+                        <p>Suggested amounts:</p>
+                        <div class="amount-buttons">
+                            <button class="amount-btn" data-amount="20">₹20</button>
+                            <button class="amount-btn" data-amount="50">₹50</button>
+                            <button class="amount-btn" data-amount="100">₹100</button>
+                            <button class="amount-btn" data-amount="200">₹200</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="thank-you">
+                    <p>🙏 Thank you for supporting open source development!</p>
+                </div>
+            </div>
+        </div>
+    </div>
     
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

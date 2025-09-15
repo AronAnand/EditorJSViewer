@@ -6,11 +6,89 @@ class EditorJSViewer {
         this.output = document.getElementById('output');
         
         this.initEventListeners();
+        this.initUPIModal();
     }
     
     initEventListeners() {
         this.renderBtn.addEventListener('click', () => this.renderContent());
         this.clearBtn.addEventListener('click', () => this.clearContent());
+    }
+
+    initUPIModal() {
+        const supportBtn = document.getElementById('support-btn');
+        const modal = document.getElementById('upi-modal');
+        const closeBtn = document.querySelector('.close');
+        const copyBtn = document.getElementById('copy-upi');
+        const amountBtns = document.querySelectorAll('.amount-btn');
+        
+        // Open modal
+        supportBtn.addEventListener('click', () => {
+            modal.style.display = 'block';
+            this.generateQRCode();
+        });
+        
+        // Close modal
+        closeBtn.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+        
+        // Close modal when clicking outside
+        window.addEventListener('click', (event) => {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+        
+        // Copy UPI ID
+        copyBtn.addEventListener('click', () => {
+            const upiId = document.getElementById('upi-id').textContent;
+            navigator.clipboard.writeText(upiId).then(() => {
+                copyBtn.textContent = '✅';
+                copyBtn.classList.add('copied');
+                setTimeout(() => {
+                    copyBtn.textContent = '📋';
+                    copyBtn.classList.remove('copied');
+                }, 2000);
+            });
+        });
+        
+        // Amount button selection
+        amountBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                amountBtns.forEach(b => b.classList.remove('selected'));
+                btn.classList.add('selected');
+                const amount = btn.dataset.amount;
+                this.generateQRCode(amount);
+            });
+        });
+    }
+    
+    generateQRCode(amount = '') {
+        const upiId = 'aronanand@paytm'; // Replace with your UPI ID
+        const payeeName = 'Aron Anand';
+        const note = 'Support Editor.js Viewer';
+        
+        let upiURL = `upi://pay?pa=${upiId}&pn=${payeeName}&cu=INR&tn=${note}`;
+        if (amount) {
+            upiURL += `&am=${amount}`;
+        }
+        
+        const qrCodeElement = document.getElementById('qr-code');
+        qrCodeElement.innerHTML = ''; // Clear previous QR code
+        
+        QRCode.toCanvas(qrCodeElement, upiURL, {
+            width: 200,
+            margin: 2,
+            color: {
+                dark: '#2c3e50',
+                light: '#ffffff'
+            }
+        }, (error) => {
+            if (error) {
+                console.error('QR Code generation failed:', error);
+                qrCodeElement.innerHTML = '<p style="color: red;">QR Code generation failed</p>';
+            }
+        });
     }
     
     renderContent() {
