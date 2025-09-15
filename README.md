@@ -8,7 +8,7 @@ A simple, clean web-based viewer for Editor.js content. Paste your Editor.js JSO
 ## 🇮🇳 Support via UPI
 If you find this tool helpful, consider supporting its development through UPI:
 
-**UPI ID:** `aronanand@paytm`
+**UPI ID:** `aronc.anand-1@okhdfcbank`
 
 - Click the "Support via UPI" button on the website for QR code
 - Supports all major UPI apps (PhonePe, Google Pay, Paytm, etc.)
