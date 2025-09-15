@@ -1,0 +1,111 @@
+{
+  "time": 1672531200000,
+  "blocks": [
+    {
+      "id": "header-1",
+      "type": "header",
+      "data": {
+        "text": "Welcome to Editor.js Viewer",
+        "level": 1
+      }
+    },
+    {
+      "id": "paragraph-1",
+      "type": "paragraph",
+      "data": {
+        "text": "This is a <b>sample document</b> created with Editor.js. It demonstrates various block types that can be rendered by this viewer."
+      }
+    },
+    {
+      "id": "header-2",
+      "type": "header",
+      "data": {
+        "text": "Features",
+        "level": 2
+      }
+    },
+    {
+      "id": "list-1",
+      "type": "list",
+      "data": {
+        "style": "unordered",
+        "items": [
+          "Parse and display Editor.js JSON data",
+          "Support for multiple block types",
+          "Clean and responsive design",
+          "Real-time rendering"
+        ]
+      }
+    },
+    {
+      "id": "quote-1",
+      "type": "quote",
+      "data": {
+        "text": "Editor.js is a block-styled editor tool that provides clean data output in useful JSON format.",
+        "caption": "Editor.js Documentation"
+      }
+    },
+    {
+      "id": "delimiter-1",
+      "type": "delimiter",
+      "data": {}
+    },
+    {
+      "id": "header-3",
+      "type": "header",
+      "data": {
+        "text": "Supported Block Types",
+        "level": 3
+      }
+    },
+    {
+      "id": "list-2",
+      "type": "list",
+      "data": {
+        "style": "ordered",
+        "items": [
+          "Headers (H1-H6)",
+          "Paragraphs with HTML formatting",
+          "Ordered and unordered lists",
+          "Blockquotes with citations",
+          "Code blocks",
+          "Tables",
+          "Images with captions",
+          "Delimiters",
+          "Raw HTML",
+          "Embeds"
+        ]
+      }
+    },
+    {
+      "id": "code-1",
+      "type": "code",
+      "data": {
+        "code": "function renderContent(data) {\n  const blocks = data.blocks;\n  blocks.forEach(block => {\n    console.log(`Rendering ${block.type} block`);\n  });\n}"
+      }
+    },
+    {
+      "id": "table-1",
+      "type": "table",
+      "data": {
+        "withHeadings": true,
+        "content": [
+          ["Block Type", "Description", "Status"],
+          ["Paragraph", "Basic text content", "✅ Supported"],
+          ["Header", "Section headings", "✅ Supported"],
+          ["List", "Ordered/unordered lists", "✅ Supported"],
+          ["Quote", "Blockquotes", "✅ Supported"],
+          ["Code", "Code snippets", "✅ Supported"]
+        ]
+      }
+    },
+    {
+      "id": "paragraph-2",
+      "type": "paragraph",
+      "data": {
+        "text": "Try copying this JSON data and pasting it into the input area to see how it renders!"
+      }
+    }
+  ],
+  "version": "2.28.2"
+}

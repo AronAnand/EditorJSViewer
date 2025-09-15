@@ -1,0 +1,16 @@
+{
+  "name": "editorjs-viewer",
+  "version": "1.0.0",
+  "description": "A simple web viewer for Editor.js content",
+  "main": "index.html",
+  "scripts": {
+    "start": "python3 -m http.server 8000",
+    "dev": "python3 -m http.server 8000"
+  },
+  "dependencies": {
+    "@editorjs/editorjs": "^2.28.2"
+  },
+  "keywords": ["editorjs", "viewer", "parser"],
+  "author": "",
+  "license": "MIT"
+}

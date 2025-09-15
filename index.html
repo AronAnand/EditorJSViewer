@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editor.js Viewer</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Editor.js Viewer</h1>
+            <p>Paste your Editor.js JSON data below to view the rendered content</p>
+        </header>
+        
+        <main>
+            <div class="input-section">
+                <textarea id="json-input" placeholder="Paste your Editor.js JSON data here..."></textarea>
+                <div class="button-group">
+                    <button id="render-btn">Render Content</button>
+                    <button id="clear-btn">Clear</button>
+                </div>
+            </div>
+            
+            <div class="output-section">
+                <h2>Rendered Content:</h2>
+                <div id="output" class="content-output"></div>
+            </div>
+        </main>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
