@@ -23,6 +23,15 @@
     <meta name="twitter:description" content="Free online tool to view and convert Editor.js JSON data to rendered HTML.">
     
     <link rel="stylesheet" href="styles.css">
+    
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'GA_MEASUREMENT_ID');
+    </script>
 </head>
 <body>
     <div class="container">
@@ -75,6 +84,9 @@
                 
                 <div class="footer-links">
                     <p>© 2025 Editor.js Viewer. Free online tool for the Editor.js community.</p>
+                    <p class="visitor-counter">
+                        <img src="https://profile-counter.glitch.me/aronanand-editorjs-viewer/count.svg" alt="Visitor counter" style="max-height: 20px;">
+                    </p>
                 </div>
             </div>
         </footer>
