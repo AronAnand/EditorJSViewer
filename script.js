@@ -5,10 +5,6 @@ class EditorJSViewer {
         this.clearBtn = document.getElementById('clear-btn');
         this.output = document.getElementById('output');
         
-        // For synchronized scrolling
-        this.blockMap = new Map(); // Maps block IDs to their line positions and rendered elements
-        this.isScrollingSyncing = false; // Prevent infinite scroll loops
-        
         this.initEventListeners();
         this.initUPIModal();
     }
@@ -16,23 +12,6 @@ class EditorJSViewer {
     initEventListeners() {
         this.renderBtn.addEventListener('click', () => this.renderContent());
         this.clearBtn.addEventListener('click', () => this.clearContent());
-        this.initSynchronizedScrolling();
-    }
-
-    initSynchronizedScrolling() {
-        // Sync output scroll when input scrolls
-        this.jsonInput.addEventListener('scroll', () => {
-            if (!this.isScrollingSyncing && this.blockMap.size > 0) {
-                this.syncOutputScroll();
-            }
-        });
-        
-        // Sync input scroll when output scrolls
-        this.output.addEventListener('scroll', () => {
-            if (!this.isScrollingSyncing && this.blockMap.size > 0) {
-                this.syncInputScroll();
-            }
-        });
     }
 
     initUPIModal() {
@@ -122,41 +101,11 @@ class EditorJSViewer {
         
         try {
             const data = JSON.parse(jsonData);
-            this.buildBlockMapping(jsonData, data);
             this.renderBlocks(data);
         } catch (error) {
             this.showError('Invalid JSON format. Please check your data and try again.');
             console.error('JSON parsing error:', error);
         }
-    }
-
-    buildBlockMapping(jsonText, data) {
-        this.blockMap.clear();
-        
-        if (!data.blocks || !Array.isArray(data.blocks)) {
-            return;
-        }
-
-        const lines = jsonText.split('\n');
-        let currentLine = 0;
-
-        // Find each block's position in the JSON
-        data.blocks.forEach((block, index) => {
-            const blockIdStr = `"${block.id}"`;
-            
-            // Find the line where this block starts
-            for (let i = currentLine; i < lines.length; i++) {
-                if (lines[i].includes(blockIdStr) || lines[i].includes(`"id": "${block.id}"`)) {
-                    this.blockMap.set(block.id, {
-                        jsonLineStart: i,
-                        blockIndex: index,
-                        renderedElement: null // Will be set during rendering
-                    });
-                    currentLine = i;
-                    break;
-                }
-            }
-        });
     }
     
     renderBlocks(data) {
@@ -167,19 +116,10 @@ class EditorJSViewer {
         
         this.output.innerHTML = '';
         
-        data.blocks.forEach((block, index) => {
+        data.blocks.forEach(block => {
             const blockElement = this.createBlockElement(block);
             if (blockElement) {
-                // Add data attribute for easier identification
-                blockElement.setAttribute('data-block-id', block.id);
-                blockElement.setAttribute('data-block-index', index);
                 this.output.appendChild(blockElement);
-                
-                // Update the block mapping with the rendered element
-                if (this.blockMap.has(block.id)) {
-                    const mapEntry = this.blockMap.get(block.id);
-                    mapEntry.renderedElement = blockElement;
-                }
             }
         });
         
@@ -373,102 +313,10 @@ class EditorJSViewer {
     clearContent() {
         this.jsonInput.value = '';
         this.output.innerHTML = '';
-        this.blockMap.clear();
     }
     
     showError(message) {
         this.output.innerHTML = `<div class="error">${message}</div>`;
-        this.blockMap.clear();
-    }
-
-    // Synchronized scrolling methods
-    syncOutputScroll() {
-        const inputScrollTop = this.jsonInput.scrollTop;
-        const inputHeight = this.jsonInput.scrollHeight - this.jsonInput.clientHeight;
-        const inputScrollPercentage = inputScrollTop / inputHeight;
-        
-        // Find which JSON line is currently at the top of the textarea
-        const lineHeight = 18; // Approximate line height in pixels
-        const currentLine = Math.floor(inputScrollTop / lineHeight);
-        
-        // Find the block that corresponds to this line
-        let targetBlock = null;
-        let closestDistance = Infinity;
-        
-        for (const [, blockInfo] of this.blockMap) {
-            const distance = Math.abs(currentLine - blockInfo.jsonLineStart);
-            if (distance < closestDistance && blockInfo.renderedElement) {
-                closestDistance = distance;
-                targetBlock = blockInfo;
-            }
-        }
-        
-        if (targetBlock && targetBlock.renderedElement) {
-            this.isScrollingSyncing = true;
-            
-            // Calculate scroll position based on block position and input percentage
-            const blockTop = targetBlock.renderedElement.offsetTop;
-            const outputHeight = this.output.scrollHeight - this.output.clientHeight;
-            
-            // Use a combination of block position and scroll percentage for smooth sync
-            const targetScroll = blockTop + (inputScrollPercentage * 200); // Adjust multiplier as needed
-            
-            this.output.scrollTo({
-                top: Math.min(targetScroll, outputHeight),
-                behavior: 'smooth'
-            });
-            
-            setTimeout(() => {
-                this.isScrollingSyncing = false;
-            }, 100);
-        }
-    }
-    
-    syncInputScroll() {
-        
-        // Find which rendered block is currently most visible
-        let visibleBlock = null;
-        let maxVisibility = 0;
-        
-        for (const [, blockInfo] of this.blockMap) {
-            if (!blockInfo.renderedElement) continue;
-            
-            const blockRect = blockInfo.renderedElement.getBoundingClientRect();
-            const outputRect = this.output.getBoundingClientRect();
-            
-            // Calculate visibility percentage
-            const blockTop = blockRect.top - outputRect.top;
-            const blockBottom = blockRect.bottom - outputRect.top;
-            const outputHeight = outputRect.height;
-            
-            if (blockTop < outputHeight && blockBottom > 0) {
-                const visibleHeight = Math.min(blockBottom, outputHeight) - Math.max(blockTop, 0);
-                const visibility = visibleHeight / blockRect.height;
-                
-                if (visibility > maxVisibility) {
-                    maxVisibility = visibility;
-                    visibleBlock = blockInfo;
-                }
-            }
-        }
-        
-        if (visibleBlock) {
-            this.isScrollingSyncing = true;
-            
-            // Calculate corresponding line in JSON and scroll to it
-            const targetLine = visibleBlock.jsonLineStart;
-            const lineHeight = 18; // Approximate line height
-            const targetScrollTop = targetLine * lineHeight;
-            
-            this.jsonInput.scrollTo({
-                top: targetScrollTop,
-                behavior: 'smooth'
-            });
-            
-            setTimeout(() => {
-                this.isScrollingSyncing = false;
-            }, 100);
-        }
     }
 }
 
