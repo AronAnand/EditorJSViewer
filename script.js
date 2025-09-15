@@ -64,7 +64,7 @@ class EditorJSViewer {
     }
     
     generateQRCode(amount = '') {
-        const upiId = 'aronanand@paytm'; // Replace with your UPI ID
+        const upiId = 'aronc.anand-1@okhdfcbank'; // Replace with your UPI ID
         const payeeName = 'Aron Anand';
         const note = 'Support Editor.js Viewer';
         
