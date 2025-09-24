@@ -313,22 +313,54 @@ class EditorJSViewer {
     }
 
     createCustomBlock(data) {
+        const container = document.createElement('div');
+        container.className = 'custom-block';
+
+        // Handle nested block first
         if (data.block && data.block.type) {
-            // Recursively handle the nested block
-            return this.createBlockElement(data.block);
-        } else if (data.updatedChange) {
-            // Handle the updated content from your specific JSON structure
-            const p = document.createElement('p');
-            p.innerHTML = data.updatedChange;
-            return p;
-        } else if (data.original) {
-            // Fallback to original content
-            const p = document.createElement('p');
-            p.innerHTML = data.original;
-            return p;
+            const nestedBlock = this.createBlockElement(data.block);
+            if (nestedBlock) {
+                container.appendChild(nestedBlock);
+            }
         }
 
-        return this.createUnsupported({type: 'customBlock', data});
+        // Show the updated content if available
+        if (data.updatedChange) {
+            const updatedContent = document.createElement('p');
+            updatedContent.innerHTML = data.updatedChange;
+
+            // Check if this is an error/validation issue
+            if (data.itemToFix) {
+                updatedContent.style.color = 'red';
+                updatedContent.style.fontWeight = 'bold';
+                updatedContent.className = 'validation-error';
+
+                // Add validation info
+                if (data.itemToFix.description) {
+                    const errorInfo = document.createElement('div');
+                    errorInfo.className = 'error-info';
+                    errorInfo.style.color = '#d73502';
+                    errorInfo.style.fontSize = '0.9em';
+                    errorInfo.style.marginTop = '5px';
+                    errorInfo.innerHTML = `⚠️ ${data.itemToFix.description}`;
+                    container.appendChild(errorInfo);
+                }
+            }
+
+            container.appendChild(updatedContent);
+        } else if (data.original) {
+            // Fallback to original content
+            const originalContent = document.createElement('p');
+            originalContent.innerHTML = data.original;
+            container.appendChild(originalContent);
+        }
+
+        // If no content was added, show unsupported message
+        if (container.children.length === 0) {
+            return this.createUnsupported({type: 'customBlock', data});
+        }
+
+        return container;
     }
     
     createUnsupported(block) {
