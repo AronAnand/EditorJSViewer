@@ -534,6 +534,29 @@ button {
     border: 1px solid #f5c6cb;
 }
 
+.custom-block {
+    margin: 10px 0;
+}
+
+.validation-error {
+    color: #dc3545 !important;
+    font-weight: bold;
+    background-color: #f8d7da;
+    padding: 8px 12px;
+    border-radius: 4px;
+    border-left: 4px solid #dc3545;
+}
+
+.error-info {
+    color: #856404;
+    background-color: #fff3cd;
+    border: 1px solid #ffeaa7;
+    border-radius: 4px;
+    padding: 6px 10px;
+    margin-top: 5px;
+    font-size: 0.9em;
+}
+
 .no-content {
     text-align: center;
     color: #666;
