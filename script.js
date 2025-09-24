@@ -316,40 +316,38 @@ class EditorJSViewer {
         const container = document.createElement('div');
         container.className = 'custom-block';
 
-        // Handle nested block first
-        if (data.block && data.block.type) {
+        // Check for validation errors and show updated content with error styling
+        if (data.updatedChange && data.itemToFix) {
+            // This is an error case - show the updated content in red
+            const updatedContent = document.createElement('p');
+            updatedContent.innerHTML = data.updatedChange;
+            updatedContent.className = 'validation-error';
+
+            // Add validation info
+            if (data.itemToFix.description) {
+                const errorInfo = document.createElement('div');
+                errorInfo.className = 'error-info';
+                errorInfo.innerHTML = `⚠️ ${data.itemToFix.description}`;
+                container.appendChild(errorInfo);
+            }
+
+            container.appendChild(updatedContent);
+        }
+        // Show updated content without error styling if available
+        else if (data.updatedChange) {
+            const updatedContent = document.createElement('p');
+            updatedContent.innerHTML = data.updatedChange;
+            container.appendChild(updatedContent);
+        }
+        // Handle nested block if no updated content
+        else if (data.block && data.block.type) {
             const nestedBlock = this.createBlockElement(data.block);
             if (nestedBlock) {
                 container.appendChild(nestedBlock);
             }
         }
-
-        // Show the updated content if available
-        if (data.updatedChange) {
-            const updatedContent = document.createElement('p');
-            updatedContent.innerHTML = data.updatedChange;
-
-            // Check if this is an error/validation issue
-            if (data.itemToFix) {
-                updatedContent.style.color = 'red';
-                updatedContent.style.fontWeight = 'bold';
-                updatedContent.className = 'validation-error';
-
-                // Add validation info
-                if (data.itemToFix.description) {
-                    const errorInfo = document.createElement('div');
-                    errorInfo.className = 'error-info';
-                    errorInfo.style.color = '#d73502';
-                    errorInfo.style.fontSize = '0.9em';
-                    errorInfo.style.marginTop = '5px';
-                    errorInfo.innerHTML = `⚠️ ${data.itemToFix.description}`;
-                    container.appendChild(errorInfo);
-                }
-            }
-
-            container.appendChild(updatedContent);
-        } else if (data.original) {
-            // Fallback to original content
+        // Fallback to original content
+        else if (data.original) {
             const originalContent = document.createElement('p');
             originalContent.innerHTML = data.original;
             container.appendChild(originalContent);
