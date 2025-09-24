@@ -1,0 +1,41 @@
+{
+  "time": 1758708351099,
+  "blocks": [
+    {
+      "id": "test-header",
+      "data": {"text": "Test Error Display", "level": 1},
+      "type": "header"
+    },
+    {
+      "id": "error-test",
+      "data": {
+        "type": "customBlock",
+        "block": {
+          "id": "jobsummary_positiontype",
+          "data": {"text": "Position Type: [No information provided]"},
+          "type": "paragraph"
+        },
+        "original": "Position Type: [No information provided]",
+        "itemToFix": {
+          "id": "5de99356-c6b8-4537-8daf-85d75fc7148d",
+          "value": "Position Type:Full-Time",
+          "impact": "Medium",
+          "heading": "Add Position Type",
+          "jd_score": 3,
+          "json_key": "job_summary.position_type",
+          "description": "Specify the type of employment for clarity.",
+          "editorAction": "append",
+          "editorjs_key": "jobsummary_positiontype"
+        },
+        "updatedChange": "Position Type:Full-Time"
+      },
+      "type": "customBlock"
+    },
+    {
+      "id": "normal-paragraph",
+      "data": {"text": "This is normal text that should appear normally."},
+      "type": "paragraph"
+    }
+  ],
+  "version": "2.31.0"
+}
