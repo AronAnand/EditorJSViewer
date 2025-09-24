@@ -162,7 +162,10 @@ class EditorJSViewer {
             
             case 'embed':
                 return this.createEmbed(block.data);
-            
+
+            case 'customBlock':
+                return this.createCustomBlock(block.data);
+
             default:
                 return this.createUnsupported(block);
         }
@@ -184,15 +187,22 @@ class EditorJSViewer {
     createList(data) {
         const listType = data.style === 'ordered' ? 'ol' : 'ul';
         const list = document.createElement(listType);
-        
+
         if (data.items && Array.isArray(data.items)) {
             data.items.forEach(item => {
                 const li = document.createElement('li');
-                li.innerHTML = item || '';
+                // Handle both string items and object items with content property
+                if (typeof item === 'string') {
+                    li.innerHTML = item;
+                } else if (item && typeof item === 'object' && item.content) {
+                    li.innerHTML = item.content;
+                } else {
+                    li.innerHTML = item || '';
+                }
                 list.appendChild(li);
             });
         }
-        
+
         return list;
     }
     
@@ -281,7 +291,7 @@ class EditorJSViewer {
     createEmbed(data) {
         const div = document.createElement('div');
         div.className = 'embed';
-        
+
         if (data.embed) {
             div.innerHTML = data.embed;
         } else if (data.source) {
@@ -291,15 +301,34 @@ class EditorJSViewer {
             iframe.height = data.height || '315';
             div.appendChild(iframe);
         }
-        
+
         if (data.caption) {
             const caption = document.createElement('p');
             caption.className = 'embed-caption';
             caption.innerHTML = data.caption;
             div.appendChild(caption);
         }
-        
+
         return div;
+    }
+
+    createCustomBlock(data) {
+        if (data.block && data.block.type) {
+            // Recursively handle the nested block
+            return this.createBlockElement(data.block);
+        } else if (data.updatedChange) {
+            // Handle the updated content from your specific JSON structure
+            const p = document.createElement('p');
+            p.innerHTML = data.updatedChange;
+            return p;
+        } else if (data.original) {
+            // Fallback to original content
+            const p = document.createElement('p');
+            p.innerHTML = data.original;
+            return p;
+        }
+
+        return this.createUnsupported({type: 'customBlock', data});
     }
     
     createUnsupported(block) {
